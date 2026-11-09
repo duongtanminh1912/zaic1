@@ -1,5 +1,8 @@
 # LifeMate — Ops nền tảng (demo mock)
 
+Đã có [audit pilot offline](docs/ops/PILOT_AUDIT.md): kiểm artifact, split,
+rollout/metric và tổng hợp timeout/repair trước khi thử tích hợp model mới.
+
 Đã có [bridge baseline50 và ASR batch](docs/ops/BASELINE50_BRIDGE.md), giữ
 prompt/parser/repair của baseline mới, kèm parity tests và factory TRAIN-fit smoke.
 Đã kiểm bằng fixture; live model/GPU và official audio còn cần tài nguyên bàn giao.
