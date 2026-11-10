@@ -1,5 +1,8 @@
 # LifeMate — Ops nền tảng (demo mock)
 
+Đã có [đánh giá VAL offline và batch VAL/public có checkpoint](docs/ops/EVAL_BATCH.md).
+Preflight dùng dữ liệu đã pin, không cần GPU; live model vẫn cần runtime phù hợp.
+
 Đã có [chuẩn bị input audio smoke baseline50](docs/ops/BASELINE50_HANDOFF.md),
 kiểm pinned dataset/SDK/split và loại gold khỏi input trước khi chạy model.
 
