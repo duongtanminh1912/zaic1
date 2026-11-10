@@ -1,5 +1,8 @@
 # LifeMate — Ops nền tảng (demo mock)
 
+Đã có [chuẩn bị input audio smoke baseline50](docs/ops/BASELINE50_HANDOFF.md),
+kiểm pinned dataset/SDK/split và loại gold khỏi input trước khi chạy model.
+
 Đã có [audit pilot offline](docs/ops/PILOT_AUDIT.md): kiểm artifact, split,
 rollout/metric và tổng hợp timeout/repair trước khi thử tích hợp model mới.
 
