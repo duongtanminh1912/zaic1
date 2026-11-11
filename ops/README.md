@@ -1,5 +1,8 @@
 # LifeMate — Ops nền tảng (demo mock)
 
+Đã có [Docker candidate theo guide BTC mới](packaging/README.md): predict.sh,
+notebook/time và kiểm I/O offline Linux AMD64; chưa chứng nhận inference GPU.
+
 Đã có [đánh giá VAL offline và batch VAL/public có checkpoint](docs/ops/EVAL_BATCH.md).
 Preflight dùng dữ liệu đã pin, không cần GPU; live model vẫn cần runtime phù hợp.
 
@@ -146,7 +149,7 @@ budget; elapsed result gồm trace kết thúc nhưng không gồm ghi dòng res
 | `tests/ops/test_runtime.py` | Unit/integration tests offline |
 | `docs/ops/CONTRACTS.md` | Các điểm cần LLM chốt và đường tích hợp |
 | `docs/ops/CHECKLIST.md` | Phần đã kiểm tra và phần còn thiếu |
-| `packaging/README.md` | Checklist packaging, chưa có Docker submission |
+| `packaging/` | Component Docker riêng: Dockerfiles, entrypoint, notebook, staging và hướng dẫn; candidate chưa kiểm GPU |
 
 Kế hoạch gốc không bị sửa. Workspace scaffold này không có bản kế hoạch local;
 đã đọc bản `LifeMate/PROJECT_PLAN_2026-11-03.md` từ repo chung trước triển khai.
