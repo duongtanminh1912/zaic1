@@ -50,7 +50,8 @@ def clean_row(row):
             'latest_audio': row['audio']}
 
 
-def prepare_smoke(dataset_dir, private_data, selected_ids, output_dir, *, max_samples=12):
+def prepare_smoke(dataset_dir, private_data, selected_ids, output_dir, *, max_samples=12,
+                  assets_manifest=None):
     selected_ids = list(selected_ids)
     if (type(max_samples) is not int or max_samples <= 0 or not selected_ids
             or len(selected_ids) > max_samples or len(set(selected_ids)) != len(selected_ids)
@@ -61,7 +62,7 @@ def prepare_smoke(dataset_dir, private_data, selected_ids, output_dir, *, max_sa
         raise FileExistsError('Preserve existing output directory')
     root = Path(dataset_dir).resolve() / 'train'
     private = Path(private_data).resolve()
-    pinned = manifest()
+    pinned = manifest() if assets_manifest is None else assets_manifest
     spec = pinned['dataset']['train']
     if (digest(root/'train.jsonl') != spec['jsonl_sha256'] or
             digest(root/'train_tools_catalog.json') != spec['catalog_sha256']):

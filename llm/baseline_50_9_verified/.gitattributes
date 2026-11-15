@@ -1,0 +1,2 @@
+# Preserve original release bytes: CODE_MANIFEST includes mixed LF/CRLF files.
+* -text whitespace=cr-at-eol

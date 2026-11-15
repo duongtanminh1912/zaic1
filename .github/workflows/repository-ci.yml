@@ -80,6 +80,14 @@ jobs:
           set -o pipefail
           python scripts/ops/check_config.py configs/ops/runtime.example.json --provenance configs/ops/provenance.example.json 2>&1 | tee ../artifacts/ops-config.log
 
+      - name: Verify Large 50.9 release and Docker adapters
+        if: matrix.module == 'ops'
+        shell: bash
+        run: |
+          set -o pipefail
+          PYTHONPATH=llm/baseline_50_9_verified python -m unittest discover -s llm/baseline_50_9_verified/tests -v 2>&1 | tee artifacts/large-release-tests.log
+          python -m unittest discover -s ops/packaging/baseline_50_9 -p test_packaging.py -v 2>&1 | tee artifacts/large-packaging-tests.log
+
       - name: Run Ops tests and demo
         if: matrix.module == 'ops'
         working-directory: ops
