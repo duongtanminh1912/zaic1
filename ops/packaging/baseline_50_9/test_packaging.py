@@ -102,10 +102,14 @@ class ContextTests(unittest.TestCase):
             (repo / 'ops/src').mkdir(parents=True)
             (release / 'baseline50/asr.py').write_bytes(b'# frozen\r\n')
             (assets / 'models/asr').mkdir(parents=True)
-            weights = assets / 'models/asr/model.safetensors'
+            weights = assets / 'models/asr/model-00001-of-00002.safetensors'
             weights.write_bytes(b'fixture-weights')
-            pinned = {'files': {'models/asr/model.safetensors':
-                       {'bytes': weights.stat().st_size, 'sha256': module.sha(weights)}}}
+            second = weights.with_name('model-00002-of-00002.safetensors')
+            second.write_bytes(b'fixture-second')
+            index = weights.with_name('model.safetensors.index.json')
+            index.write_text(json.dumps({'weight_map': {'a': weights.name, 'b': second.name}}))
+            pinned = {'files': {p.relative_to(assets).as_posix():
+                       {'bytes': p.stat().st_size, 'sha256': module.sha(p)} for p in (weights, second, index)}}
             (release / 'assets.manifest.json').write_text(json.dumps(pinned))
             code = {p.relative_to(release).as_posix(): module.sha(p) for p in release.rglob('*') if p.is_file()}
             (release / 'CODE_MANIFEST.json').write_text(json.dumps({'files_sha256': code}))
@@ -115,16 +119,38 @@ class ContextTests(unittest.TestCase):
                 'archive_sha256': 'e5d489b995c2a0965ee746a246c934be9f4ffa00c78183b2d4f644f43ae5d7a7',
                 'files': {'llama-server': {'bytes': server.stat().st_size, 'sha256': module.sha(server)}}}))
             training.mkdir(); (training / 'README.md').write_text('fixture')
+            training_manifest = json.dumps({'files': {'README.md': module.sha(training / 'README.md')}})
+            (training / 'CODE_MANIFEST.json').write_text(training_manifest)
+            pin_dir = repo / 'llm/baseline_50_9_training_repro'
+            pin_dir.mkdir(parents=True)
+            (pin_dir / 'CODE_MANIFEST.json').write_text(training_manifest)
             with patch.object(module, 'REPO', repo):
-                module.prepare(assets, runtime, training, root / 'context')
+                module.prepare(assets, runtime, training, root / 'context', training_data_url='https://example.org/training.zip')
                 target = root / 'context/llm/baseline_50_9_verified'
                 self.assertEqual((target / 'assets.manifest.json').read_bytes(),
                                  (release / 'assets.manifest.json').read_bytes())
                 self.assertEqual((target / 'baseline50/asr.py').read_bytes(), b'# frozen\r\n')
                 self.assertNotIn(b'\r', (root / 'context/predict.sh').read_bytes())
+                self.assertTrue((root / 'context/private_assets/models/asr' / second.name).is_file())
+                second.unlink()
+                with self.assertRaises(FileNotFoundError):
+                    module.prepare(assets, runtime, training, root / 'missing-shard', training_data_url='https://example.org/training.zip')
+                self.assertFalse((root / 'missing-shard').exists())
+                second.write_bytes(b'fixture-second')
+                staged_training = root / 'context/training_code'
+                self.assertTrue((staged_training / 'baseline_50_9_training_repro/CODE_MANIFEST.json').is_file())
+                access = json.loads((staged_training / 'DATA_ACCESS.json').read_text())
+                self.assertEqual(access['url'], 'https://example.org/training.zip')
+                self.assertEqual(len(access['sha256']), 64)
+                with self.assertRaisesRegex(ValueError, 'HTTPS'):
+                    module.prepare(assets, runtime, training, root / 'bad-url', training_data_url='')
+                with self.assertRaisesRegex(ValueError, 'Training source'):
+                    (training / 'README.md').write_text('changed')
+                    module.prepare(assets, runtime, training, root / 'bad-training', training_data_url='https://example.org/training.zip')
+                (training / 'README.md').write_text('fixture')
                 (release / 'baseline50/asr.py').write_text('changed')
                 with self.assertRaisesRegex(ValueError, 'Release source'):
-                    module.prepare(assets, runtime, training, root / 'bad-context')
+                    module.prepare(assets, runtime, training, root / 'bad-context', training_data_url='https://example.org/training.zip')
                 self.assertFalse((root / 'bad-context').exists())
 
 

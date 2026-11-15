@@ -23,9 +23,11 @@ COPY linux_runtime /code/linux_runtime
 COPY training_code /code/training_code
 COPY predict.py predict.sh start_jupyter.sh predict_notebook.ipynb README.md /code/
 RUN test -x /code/linux_runtime/llama-server \
-    && test -f /code/private_assets/models/asr/model.safetensors \
+    && test -f /code/private_assets/models/asr/model.safetensors.index.json \
     && test -f /code/llm/baseline_50_9_verified/assets.manifest.json \
     && test -f /code/training_code/README.md \
+    && test -f /code/training_code/DATA_ACCESS.json \
+    && python3 -B /code/training_code/baseline_50_9_training_repro/audit_public.py \
     && PYTHONPATH=/code/llm/baseline_50_9_verified python3 -c 'from baseline50.release import verify; verify()' \
     && python3 -c 'from pathlib import Path; assert all(b"\r" not in Path(p).read_bytes() for p in ("predict.sh", "start_jupyter.sh"))'
 CMD ["/bin/bash", "/code/predict.sh"]

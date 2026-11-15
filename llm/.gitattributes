@@ -1,0 +1,2 @@
+# Preserve byte-pinned mixed LF/CRLF training release without altering its allowlist.
+baseline_50_9_training_repro/** -text whitespace=cr-at-eol,-blank-at-eof

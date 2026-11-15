@@ -86,6 +86,8 @@ jobs:
         run: |
           set -o pipefail
           python -m unittest discover -s ops/packaging/baseline_50_9 -p test_packaging.py -v 2>&1 | tee artifacts/large-packaging-tests.log
+          python -B llm/baseline_50_9_training_repro/audit_public.py
+          python -B llm/baseline_50_9_training_repro/reproduce.py --help
 
       - name: Run Ops tests and demo
         if: matrix.module == 'ops'
