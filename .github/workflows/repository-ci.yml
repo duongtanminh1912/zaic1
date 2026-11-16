@@ -24,6 +24,7 @@ jobs:
     env:
       HF_HUB_OFFLINE: '1'
       TRANSFORMERS_OFFLINE: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - name: Check out source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -88,6 +89,10 @@ jobs:
           python -m unittest discover -s ops/packaging/baseline_50_9 -p test_packaging.py -v 2>&1 | tee artifacts/large-packaging-tests.log
           python -B llm/baseline_50_9_training_repro/audit_public.py
           python -B llm/baseline_50_9_training_repro/reproduce.py --help
+          python -B -m unittest discover -s ops/packaging/baseline_52 -p test_packaging.py -v 2>&1 | tee artifacts/release52-packaging-tests.log
+          PYTHONPATH=llm/baseline_52_release/inference python -B -c 'from baseline50.release import verify; verify()'
+          python -m unittest discover -s ops/packaging/baseline_52 -p test_packaging.py -v
+          PYTHONPATH=llm/baseline_52_release/inference python -B -c 'from baseline50.release import verify; verify()'
 
       - name: Run Ops tests and demo
         if: matrix.module == 'ops'
@@ -124,3 +129,7 @@ jobs:
         env:
           PYTHONPATH: llm/baseline_50_9_verified
         run: python -m unittest discover -s llm/baseline_50_9_verified/tests -v
+      - name: Verify complete public52 source and training handoff
+        run: python -B llm/baseline_52_release/release_tools.py audit
+      - name: Verify complete public52 source package
+        run: python -B llm/baseline_52_release/release_tools.py audit
