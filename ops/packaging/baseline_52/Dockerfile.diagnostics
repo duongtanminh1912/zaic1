@@ -1,0 +1,4 @@
+# Overlay only Ops instrumentation onto the existing model52 candidate.
+ARG BASE_IMAGE=zaic-team:52-candidate
+FROM ${BASE_IMAGE}
+COPY predict.py predict_notebook.ipynb /code/

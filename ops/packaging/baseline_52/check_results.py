@@ -22,7 +22,10 @@ def check(result, expected):
                        (result / (filename + '.diagnostics.jsonl')).read_text().splitlines()]
         if [d['id'] for d in diagnostics] != ids:
             raise ValueError('Diagnostics coverage mismatch: ' + filename)
-        failed = [d['id'] for d in diagnostics if d['failure'] or d.get('error_type') or d.get('baseline')!='52']
+        failed = [d['id'] for d,row in zip(diagnostics,rows)
+                  if d['failure'] or d.get('error_type') or d.get('baseline')!='52'
+                  or d.get('status') not in ('finished','asked_missing_info','call_budget_exhausted')
+                  or row['time']>30000]
         if failed:
             raise ValueError('Technical failure/timeout; preserve logs: ' + repr(failed))
         records.append([{k: row[k] for k in ('id', 'tool_calls', 'state_hash')} for row in rows])

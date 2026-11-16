@@ -89,6 +89,62 @@ class SerialTests(unittest.TestCase):
         self.assertTrue(diagnostics['failure'])
         self.assertEqual(self.events[-2:], ['server-stop', 'cpu'])
 
+    def test_startup_timeout_records_remaining_budget_and_keeps_session(self):
+        clock=[0.]
+        def transcribe(paths, deadline):
+            clock[0]+=12.
+            return {p:'transcript' for p in paths},{}
+        self.p.asr.transcribe=transcribe
+        class FailingServer:
+            def __init__(self,*args,deadline):self.deadline=deadline
+            def __enter__(self):
+                clock[0]+=19.
+                raise TimeoutError('startup fixture')
+        self.p.server_factory=FailingServer
+        with patch.object(predict.time,'perf_counter',side_effect=lambda:clock[0]), patch.object(predict.time,'monotonic',side_effect=lambda:clock[0]):
+            record,d=self.p.infer(self.row)
+        self.assertEqual(d['stage_ms']['asr_transcribe_ms'],12000)
+        self.assertEqual(d['qwen_budget_ms'],18000)
+        self.assertEqual(d['stage_ms']['qwen_startup_ms'],19000)
+        self.assertEqual(d['failure_phase'],'qwen_startup_ms')
+        self.assertNotIn('agent_ms',d['stage_ms'])
+        self.assertEqual(record['state_hash'],'sdk-hash')
+        self.assertEqual(record['time'],31000)
+
+
+class WriterTests(unittest.TestCase):
+    def test_full_coverage_summary_and_cli_failure_exit(self):
+        from unittest.mock import Mock
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            def infer(row,started=None):
+                failed=row['id']=='first'
+                return {'id':row['id'],'tool_calls':[],'state_hash':'sdk-hash','time':31000 if failed else 100}, {'id':row['id'],'status':'timeout' if failed else 'finished','failure':failed}
+            p=SimpleNamespace(result=root,directory=root,split='train',infer=infer)
+            with patch.object(predict,'input_rows',return_value=iter([{'id':'first'},{'id':'second'}])):
+                report=predict.write_predictions(p)
+            self.assertFalse(report['technical_smoke_passed'])
+            self.assertEqual(report['rows'],2);self.assertEqual(report['technical_failures'],1)
+            rows=[json.loads(line) for line in (root/'submission.jsonl').read_text().splitlines()]
+            self.assertEqual([r['id'] for r in rows],['first','second'])
+            self.assertEqual(json.loads((root/'submission.jsonl.summary.json').read_text()),report)
+            instance=Mock()
+            with patch.object(predict.sys,'argv',['predict.py','--output-dir',str(root/'new')]), patch.object(predict,'Predictor',return_value=instance), patch.object(predict,'write_predictions',return_value=report):
+                with self.assertRaises(SystemExit) as exc:predict.main()
+            self.assertEqual(exc.exception.code,2);instance.close.assert_called_once()
+
+    def test_parity_checker_rejects_over_budget_even_with_false_failure_flag(self):
+        spec=importlib.util.spec_from_file_location('checker52',HERE/'check_results.py')
+        checker=importlib.util.module_from_spec(spec);spec.loader.exec_module(checker)
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);expected=root/'expected.jsonl'
+            expected.write_text(json.dumps({'id':'fixture'})+'\n')
+            for name in ('submission.jsonl','jupyter_submission.jsonl'):
+                (root/name).write_text(json.dumps({'id':'fixture','tool_calls':[],'state_hash':'sdk-hash','time':30001})+'\n')
+                (root/(name+'.diagnostics.jsonl')).write_text(json.dumps({'id':'fixture','status':'finished','failure':False,'baseline':'52'})+'\n')
+            with self.assertRaisesRegex(ValueError,'Technical failure'):checker.check(root,expected)
+
+
 class ContextTests(unittest.TestCase):
     def test_stages_52_release_both_training_links_and_rejects_wrong_assets(self):
         import shutil

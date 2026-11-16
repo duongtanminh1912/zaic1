@@ -138,6 +138,10 @@ Linux image. Full retrain/reference/merge-export mới chưa được thực hi�
 
 ## 5. Predict offline trên 4060
 
+Nếu gặp startup timeouts như lượt WSL10GB/8CPU, giữ output cũ và dùng
+[hướng dẫn đo timeout](RTX4060_TIMEOUT_52.md) trước khi điều chỉnh cấu hình.
+CLI mới trả exit2 khi có technical failure/timeout; đủ JSONL không phải đạt smoke.
+
 ```bash
 mkdir "$TODAY/result"
 sudo docker run --rm --gpus '"device=0"' --network none \
