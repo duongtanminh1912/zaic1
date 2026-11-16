@@ -1,5 +1,6 @@
 """Linux CUDA candidate. Uses mounted BTC SDK, never a baked TRAIN SDK."""
 import argparse
+from contextlib import contextmanager
 import importlib
 import json
 import os
@@ -16,6 +17,35 @@ os.environ.update(HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',CUBLAS_WORKSPACE_C
 from lifemate.runtime.configuration import strict_json
 from lifemate.runtime.container_io import split_root,input_rows,timed_submission,check_timed_output
 from lifemate.runtime.smoke_inputs import digest
+
+
+def memory_snapshot():
+    """Small read-only Linux/WSL counters; no GPU synchronization or subprocess."""
+    result={}
+    for filename,keys in [('/proc/meminfo',{'MemAvailable','SwapTotal','SwapFree'}),
+                          ('/proc/vmstat',{'pswpin','pswpout'})]:
+        try:
+            for line in Path(filename).read_text().splitlines():
+                parts=line.replace(':','').split()
+                if parts and parts[0] in keys:result[parts[0]]=int(parts[1])
+        except (OSError,ValueError,IndexError):pass
+    for name in ('memory.current','memory.max','memory.swap.current','memory.events'):
+        try:result['cgroup_'+name]=Path('/sys/fs/cgroup',name).read_text().strip()
+        except OSError:pass
+    return result
+
+
+class StageTimes:
+    def __init__(self):self.milliseconds={};self.failure_phase=None
+
+    @contextmanager
+    def measure(self,name):
+        started=time.perf_counter()
+        try:yield
+        except BaseException:
+            self.failure_phase=self.failure_phase or name
+            raise
+        finally:self.milliseconds[name]=int((time.perf_counter()-started)*1000)
 
 
 class Predictor:
@@ -72,22 +102,41 @@ class Predictor:
         from baseline50.asr import audio_paths,audio_view
         started=time.perf_counter() if started is None else started
         deadline=time.monotonic()+max(0.,30-(time.perf_counter()-started))
+        stages=StageTimes()
+        input_prepare_ms=int((time.perf_counter()-started)*1000)
+        memory_before=memory_snapshot();memory_before_qwen=None;qwen_budget_ms=None
         self.ordinal+=1
         env=self.sdk.ToolEnv(self.split,prepared['id'],root=self.root)
         row={'id':prepared['id'],'audio':prepared['latest_audio'],
              'context':prepared['context'],'history':prepared['history']}
         status='runtime_error';error_type=None;repairs=0
         try:
-            if time.monotonic()>=deadline:raise TimeoutError('Input preparation exhausted deadline')
-            self.asr.model.to('cuda')
-            mapping,_=self.asr.transcribe(audio_paths(row),deadline)
-            self.asr.model.to('cpu');self.asr.torch.cuda.empty_cache()
-            if time.monotonic()>=deadline:raise TimeoutError('ASR/transfer exhausted sample deadline')
-            with self.server_factory(self.assets/self.spec['qwen_file'],self.executable,
-                    self.result/(self.run_label+'_server_'+str(self.ordinal)),deadline=deadline) as backend:
-                result=self.actor.infer(audio_view(row,mapping),self.tools,env,backend,
-                    seconds=max(0.,deadline-time.monotonic()),max_calls=8,max_repairs=2)
-                status=result['status'];repairs=result['repairs']
+            if time.monotonic()>=deadline:
+                stages.failure_phase='input_preparation'
+                raise TimeoutError('Input preparation exhausted deadline')
+            with stages.measure('asr_to_gpu_ms'):self.asr.model.to('cuda')
+            with stages.measure('asr_transcribe_ms'):
+                mapping,_=self.asr.transcribe(audio_paths(row),deadline)
+            with stages.measure('asr_to_cpu_ms'):
+                self.asr.model.to('cpu');self.asr.torch.cuda.empty_cache()
+            if time.monotonic()>=deadline:
+                stages.failure_phase='after_asr_transfer'
+                raise TimeoutError('ASR/transfer exhausted sample deadline')
+            memory_before_qwen=memory_snapshot()
+            qwen_budget_ms=max(0,int((deadline-time.monotonic())*1000))
+            with stages.measure('qwen_startup_ms'):
+                server=self.server_factory(self.assets/self.spec['qwen_file'],self.executable,
+                    self.result/(self.run_label+'_server_'+str(self.ordinal)),deadline=deadline)
+                backend=server.__enter__()
+            try:
+                with stages.measure('agent_ms'):
+                    result=self.actor.infer(audio_view(row,mapping),self.tools,env,backend,
+                        seconds=max(0.,deadline-time.monotonic()),max_calls=8,max_repairs=2)
+                    status=result['status'];repairs=result['repairs']
+                    if status not in ('finished','asked_missing_info','call_budget_exhausted'):
+                        stages.failure_phase='agent'
+            finally:
+                with stages.measure('qwen_shutdown_ms'):server.__exit__(*sys.exc_info())
         except Exception as exc:
             status='timeout' if isinstance(exc,TimeoutError) else 'runtime_error'
             error_type=type(exc).__name__
@@ -96,14 +145,23 @@ class Predictor:
             with (self.result/(self.run_label+'_errors.log')).open('a') as stream:
                 traceback.print_exc(file=stream)
         finally:
-            self.asr.model.to('cpu');self.asr.torch.cuda.empty_cache()
-        submission={'id':prepared['id'],'tool_calls':env.get_tool_calls(),'state_hash':env.get_state_hash()}
+            with stages.measure('asr_cleanup_ms'):
+                self.asr.model.to('cpu');self.asr.torch.cuda.empty_cache()
+        with stages.measure('session_export_ms'):
+            submission={'id':prepared['id'],'tool_calls':env.get_tool_calls(),'state_hash':env.get_state_hash()}
+        memory_after=memory_snapshot()
         ms=int((time.perf_counter()-started)*1000)
-        if ms>30000:status='timeout'
+        if ms>30000:
+            status='timeout';stages.failure_phase=stages.failure_phase or 'end_to_end'
         diagnostics={'id':prepared['id'],'status':status,'error_type':error_type,
                      'failure':status not in ('finished','asked_missing_info','call_budget_exhausted'),
                      'repairs':repairs,'baseline':'52','placement':'serial','warmup':False,
-                     'runtime_parity_verified':False,'predict_ms':ms}
+                     'runtime_parity_verified':False,'predict_ms':ms,
+                     'stage_ms':stages.milliseconds,'input_prepare_ms':input_prepare_ms,
+                     'failure_phase':stages.failure_phase,'qwen_budget_ms':qwen_budget_ms,
+                     'startup_failure_includes_backend_cleanup':stages.failure_phase=='qwen_startup_ms',
+                     'memory_before':memory_before,'memory_before_qwen':memory_before_qwen,
+                     'memory_after':memory_after}
         print(json.dumps(diagnostics),flush=True)
         return timed_submission(submission,ms),diagnostics
 
@@ -114,7 +172,7 @@ class Predictor:
 def write_predictions(predictor,filename='submission.jsonl'):
     output=predictor.result/filename
     if output.exists():raise FileExistsError('Preserve existing submission; no automatic rerun')
-    ids=[]
+    ids=[];failures=0;timeouts=0
     with output.open('x',encoding='utf-8') as stream, (predictor.result/(filename+'.diagnostics.jsonl')).open('x',encoding='utf-8') as log:
         iterator=iter(input_rows(predictor.directory,predictor.split))
         while True:
@@ -122,10 +180,15 @@ def write_predictions(predictor,filename='submission.jsonl'):
             try:prepared=next(iterator)
             except StopIteration:break
             record,diagnostics=predictor.infer(prepared,started=started)
+            failures+=bool(diagnostics['failure']);timeouts+=diagnostics['status']=='timeout'
             ids.append(prepared['id'])
             stream.write(json.dumps(record,ensure_ascii=False,allow_nan=False)+'\n');stream.flush()
             log.write(json.dumps(diagnostics,ensure_ascii=False,allow_nan=False)+'\n');log.flush()
-    return check_timed_output(output,ids)
+    report={**check_timed_output(output,ids),'technical_failures':failures,'timeouts':timeouts,
+            'technical_smoke_passed':failures==0,'gpu_timing_scope':'local GPU only'}
+    with (predictor.result/(filename+'.summary.json')).open('x',encoding='utf-8') as summary:
+        json.dump(report,summary,indent=2)
+    return report
 
 
 def main():
@@ -141,8 +204,11 @@ def main():
         return
     if Path(args.output_dir,'submission.jsonl').exists():raise FileExistsError('Existing output')
     predictor=Predictor(args.data_root,args.assets,args.runtime,args.output_dir,args.split)
-    try:print(json.dumps(write_predictions(predictor)))
+    try:
+        report=write_predictions(predictor)
+        print(json.dumps(report))
     finally:predictor.close()
+    if report['technical_failures']:raise SystemExit(2)
 
 
 if __name__=='__main__':main()
