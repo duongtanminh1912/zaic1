@@ -1,0 +1,15 @@
+{
+  "historical_medium_source_sha256": "e7b4684d67d90a56a436ab95607bc156bba1835f2f7d4478918bf83a884279dc",
+  "historical_medium_adapter_sha256": "b2b73b8bd32728ce1117ff7bd3c072b62e97d2040600b230646365f4ca236ba3",
+  "shared_code_manifest_sha256": "2cfcb95f3b0109e91fddd6c7284cb2d4748198b2fe1a895a45f1998e98afa54c",
+  "changes": [
+    "Extract Medium ASR functions from the archived V3 trainer and specialize kind=asr; remove unused LLM V3/profile/merge branches and machine-specific helper imports.",
+    "Use the complete frozen shared V2 helpers, raw/prepared data, Qwen training and converter package; verify Medium clips, split and Qwen data/adapter identity before reuse.",
+    "Bind data root, base snapshot and output directory explicitly; replace old workstation file guards with source/private manifest and per-file base SHA256 checks.",
+    "Handle a repeated on_save at the same optimizer step once per training invocation; preserve original mathematical training parameters and evaluation.",
+    "Keep historical failed-save status and recovery evidence intact. No optimizer replay beyond steps250/489, and no old-optimizer resume through this wrapper.",
+    "Add Medium FP16 CPU merge using the original pinned base processor. Historical merge weights have not been recomputed in this packaging run."
+  ],
+  "full_retraining_performed": false,
+  "gpu_validation_performed": false
+}

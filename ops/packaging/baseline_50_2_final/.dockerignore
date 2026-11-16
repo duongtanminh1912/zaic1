@@ -1,0 +1,7 @@
+*
+!Dockerfile
+!README.md
+!audit_base.py
+!BASE_IMAGE_FILES.json
+!training_code/
+!training_code/**

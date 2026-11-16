@@ -1,0 +1,54 @@
+{
+  "status": "cpu_and_data_checks_passed",
+  "date": "2026-11-16",
+  "training_archive_sha256_crc_and_29_member_hashes": true,
+  "full_shared_private_manifest_checked": true,
+  "split_and_qwen_data_and_adapter_match_shared_bundle": true,
+  "medium_checkpoint": {
+    "global_step": 250,
+    "max_steps": 250,
+    "epoch": 2,
+    "historical_save_failure": "Refuse overwrite epoch adapter",
+    "recovery_evidence_verified": true,
+    "optimizer_replayed": false
+  },
+  "qwen_checkpoint": {
+    "global_step": 489,
+    "max_steps": 489,
+    "epoch": 1
+  },
+  "medium_unchanged_function_AST_parity": {
+    "read": true,
+    "atomic": true,
+    "gpu_setup": true,
+    "asr_collator": true,
+    "evaluate_asr": true
+  },
+  "medium_dataset_AST_equal_except_raw_root": true,
+  "prepared_model_inputs_byte_equal": {
+    "train.jsonl": true,
+    "val.jsonl": true,
+    "train_asr_clips.json": true,
+    "val_asr_clips.json": true,
+    "retrieval_index.json": true,
+    "split.json": true,
+    "SYSTEM.txt": true,
+    "config.json": true
+  },
+  "archived_validation_metric_recomputed": {
+    "samples": 1039,
+    "edits": 1578,
+    "reference_words": 14622,
+    "wer_percent": 10.791957324579402,
+    "metric_only_not_live_asr": true
+  },
+  "regression_tests_passed": 4,
+  "new_gpu_inference_tested": false,
+  "new_full_retraining_tested": false,
+  "new_merge_export_tested": false,
+  "new_linux_docker_build_tested": false,
+  "note": "Historical artifacts verified and portable code/data parity checked on CPU. No claim of identical newly trained weights or GPU runtime.",
+  "ops_regression_suite_passed": 141,
+  "code_only_context_prepared_with_actual_training_urls": true,
+  "base_image_inference_files_pinned": 128
+}

@@ -1,0 +1,522 @@
+{
+  "accepted_image_ids": [
+    "sha256:a74dcebbcd38f875af33e9123ae4457bc8c7520c31a272f9951f8b05749001f0",
+    "sha256:176dc60ca390953dae8e9c0aa5a98f878cd867183935b0f982e96cc1bd4b16fb"
+  ],
+  "base_archive_bytes": 9810989143,
+  "base_archive_md5": "bbcad81bdf9d0a53ecaf10110adbc4fc",
+  "files": {
+    "code/requirements-linux.txt": {
+      "bytes": 200,
+      "sha256": "68b5413289af041536826d5da5e4ba9a462f88e3aba9e27042c2dd4d16f7f769"
+    },
+    "code/ops/src/lifemate/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "code/ops/src/lifemate/adapters/__init__.py": {
+      "bytes": 75,
+      "sha256": "735d348530116afca3b563dd094064f7e742fca7e39edb6b81dd10f6770c59f5"
+    },
+    "code/ops/src/lifemate/adapters/baseline50.py": {
+      "bytes": 11921,
+      "sha256": "da3bc5a952d2eab70206e70127aecbd94172ab0898b05a16f2a7dc0ee17fd4b4"
+    },
+    "code/ops/src/lifemate/adapters/baseline50_factory.py": {
+      "bytes": 3299,
+      "sha256": "acb51a8ef8adb1253fc08c1df8d96d77e82b1fc1fc195307a53c54e8e6f03da9"
+    },
+    "code/ops/src/lifemate/adapters/baseline50_partitions.py": {
+      "bytes": 3206,
+      "sha256": "e70c1dab931ae5f4b70bc396fbcab5316148105ef4ee3afc7aa67433a26b416a"
+    },
+    "code/ops/src/lifemate/adapters/native_llm.py": {
+      "bytes": 4582,
+      "sha256": "643d8a25366ab3608a23c21a0ac9da46e2a59efe90db47698654550a603f4c56"
+    },
+    "code/ops/src/lifemate/adapters/toolenv.py": {
+      "bytes": 2751,
+      "sha256": "e74efc212c2beb1544515c011092d9d2ece81bfaf06935515f75848c99e83e26"
+    },
+    "code/ops/src/lifemate/dev/__init__.py": {
+      "bytes": 73,
+      "sha256": "5ca3a063e74fcff2bf597da4cbdda4b630f9e7ef026b72756397e8ae40e1bc92"
+    },
+    "code/ops/src/lifemate/dev/baseline50_demo.py": {
+      "bytes": 1416,
+      "sha256": "130711e2363880ecc0ca7ecc5ad06d3b59544db01a7c98efd0589cfab9c8650a"
+    },
+    "code/ops/src/lifemate/dev/demo.py": {
+      "bytes": 2302,
+      "sha256": "3fb33dc077659a1f66e61a5461e3b646d657c8d7c3e31177606ebee5ad11c6a6"
+    },
+    "code/ops/src/lifemate/dev/mocks.py": {
+      "bytes": 3894,
+      "sha256": "c9e6de253b88909f5fff373265d79567b6aa7e7c38fa8760cb89d449df14a73a"
+    },
+    "code/ops/src/lifemate/dev/system_demo.py": {
+      "bytes": 3256,
+      "sha256": "bf2ee25aa9eed3feebb21b4880e4203701480feb97edb1c4bd5938a1df6c4d6c"
+    },
+    "code/ops/src/lifemate/runtime/README.md": {
+      "bytes": 699,
+      "sha256": "f1d8cd41fff4b19470c145b4a5025e29cf177fff07374750f9bc924c638c4f51"
+    },
+    "code/ops/src/lifemate/runtime/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "code/ops/src/lifemate/runtime/batch.py": {
+      "bytes": 6913,
+      "sha256": "8b930674ce285422f328bd442eb1c47ad3c65ca0473d7cf395d06c34eee5dfcc"
+    },
+    "code/ops/src/lifemate/runtime/configuration.py": {
+      "bytes": 1210,
+      "sha256": "1a4d47a3b16e4f2eac33e33557d15eb7518fba40e6c216b9c3322e2051b4ed67"
+    },
+    "code/ops/src/lifemate/runtime/container_io.py": {
+      "bytes": 3467,
+      "sha256": "b7cbe76a6be2d7b50e9ddaccf48ab2cb851ecf41d30eaf89c4277c0668588fbd"
+    },
+    "code/ops/src/lifemate/runtime/contracts.py": {
+      "bytes": 4227,
+      "sha256": "12b1691aaf686c6d1a8c226e407c618469fee4637120c455eccb342ea338a363"
+    },
+    "code/ops/src/lifemate/runtime/deadlines.py": {
+      "bytes": 409,
+      "sha256": "4d82f9fbcaf12d7096171a58f9a8161d9d5cae94c9bda31bf639502fd7019638"
+    },
+    "code/ops/src/lifemate/runtime/manifest.py": {
+      "bytes": 4477,
+      "sha256": "5043571a620e18fc5ac246b1694db772cba98ae428ad7191d386fc42fc13e262"
+    },
+    "code/ops/src/lifemate/runtime/pilot_audit.py": {
+      "bytes": 8969,
+      "sha256": "397cd158c5daecc76eb615677c460c4c5149fc5524ecb8de7590a5d14554053b"
+    },
+    "code/ops/src/lifemate/runtime/runner.py": {
+      "bytes": 9208,
+      "sha256": "1acfe9d74ef7df7ebf06e1af90750d9b838745925b7ec6e895246bf887bbf947"
+    },
+    "code/ops/src/lifemate/runtime/smoke_inputs.py": {
+      "bytes": 6449,
+      "sha256": "52d66731b3fa86f28eb8b09a1ac7f9cb166966404c97b6d5cb4c291f1654990e"
+    },
+    "code/ops/src/lifemate/runtime/submission_check.py": {
+      "bytes": 3945,
+      "sha256": "cd614faf6936e051baa2365a7c551ee16c65038c66f0d7fd5140872d430443e5"
+    },
+    "code/ops/src/lifemate/runtime/tracing.py": {
+      "bytes": 1420,
+      "sha256": "dfc12dc594266cbad81609d3293fa1dc2d97ec4c3232cc174440b8259f745a63"
+    },
+    "code/ops/src/lifemate/runtime/val_evaluation.py": {
+      "bytes": 3310,
+      "sha256": "4cb665a8cd87da01672388093b03192027117f999f4053c9ca5012111ee4a996"
+    },
+    "code/ops/src/lifemate/system/__init__.py": {
+      "bytes": 357,
+      "sha256": "2e56b1a8d23e4a36ea02b90e8e2f4b1b15f8fe164335eeb6f4ec456a5535dcbf"
+    },
+    "code/ops/src/lifemate/system/cli.py": {
+      "bytes": 4874,
+      "sha256": "22da189d547d1eeca0c8ba1268ab02272183f3dd9ca3b191e426c49b25113d60"
+    },
+    "code/ops/src/lifemate/system/context.py": {
+      "bytes": 2672,
+      "sha256": "b9f5622b1c24255faccd99527a8d79cc94c5212af457b839035e1e6026ae314e"
+    },
+    "code/ops/src/lifemate/system/grounding.py": {
+      "bytes": 3692,
+      "sha256": "9e5bc80a1066c1ed3b25259b9120ef2778bfe4cb2e08ef0d8352d4f64c2e9176"
+    },
+    "code/ops/src/lifemate/system/pipeline.py": {
+      "bytes": 6087,
+      "sha256": "f3f5ad3c28714f53ed28ee4063ee895d6bd4684885a2bd2e7da2ffa45220ca9e"
+    },
+    "code/ops/src/lifemate/system/prompt.py": {
+      "bytes": 2128,
+      "sha256": "0d74def2f58b5fc8c0713ba7db00423fa5b31a6e25a90f851dbe9a72e4524e3b"
+    },
+    "code/ops/src/lifemate/system/retrieval.py": {
+      "bytes": 4140,
+      "sha256": "088eb1dfcd4a118c7157024339ffbbb9f92e71b2b836b80b01049c29d6cd0c62"
+    },
+    "code/llm/baseline_50_2/baseline50/SOLUTION_DESCRIPTION.txt": {
+      "bytes": 649,
+      "sha256": "9412484f320a460745bc1804c675c479e9f9426552a7d43f67adb8f581920a50"
+    },
+    "code/llm/baseline_50_2/baseline50/__init__.py": {
+      "bytes": 96,
+      "sha256": "480b86fa615e75b9e83bc28a7f9c00b571d820821ea54d595e48902fec0081dd"
+    },
+    "code/llm/baseline_50_2/baseline50/__main__.py": {
+      "bytes": 31,
+      "sha256": "3eab4197b662bbcc2dccda07bfa3ce0452d08b6f57d133dd6a9abebc79b4c552"
+    },
+    "code/llm/baseline_50_2/baseline50/actor.py": {
+      "bytes": 9598,
+      "sha256": "2023906e2b0696c1f7e8682d28591055755b08deab3aa4842bf38bc10288edda"
+    },
+    "code/llm/baseline_50_2/baseline50/asr.py": {
+      "bytes": 6247,
+      "sha256": "43e23b87819de06d245d2381663b9a095f9b20aa04af56a464155f83d6e3878e"
+    },
+    "code/llm/baseline_50_2/baseline50/assets.manifest.json": {
+      "bytes": 18914,
+      "sha256": "800dc5de2008359756ac970ec1b46f3add83e177d9882893d591fed8ff196af0"
+    },
+    "code/llm/baseline_50_2/baseline50/backend.py": {
+      "bytes": 5135,
+      "sha256": "a74d88ad1396dab66e11bb0c0976f7d8d8a2aa1bfd86a1caede022c4fc70a6fa"
+    },
+    "code/llm/baseline_50_2/baseline50/io.py": {
+      "bytes": 5555,
+      "sha256": "5422aa5a46e8ac74308144c46b1d9a91973c2a580f3cd0e9b19f8fa9fdb8c3ac"
+    },
+    "code/llm/baseline_50_2/baseline50/policy.py": {
+      "bytes": 8193,
+      "sha256": "acd898bac4c8df41530e8e2abdd65da108ebfbf928f1a2f90f797157a859f46c"
+    },
+    "code/llm/baseline_50_2/baseline50/prompt.py": {
+      "bytes": 2659,
+      "sha256": "6022ae476574f63f95839072cde87e95d2c48e717164e42dafa5122cf8beaac4"
+    },
+    "code/llm/baseline_50_2/baseline50/run.py": {
+      "bytes": 11216,
+      "sha256": "dc084eba043860c795a2b6f7d972c209c1cd72bfb5dfa3081168b6f91486725b"
+    },
+    "code/llm/baseline_50_2/baseline50/scoring.py": {
+      "bytes": 3915,
+      "sha256": "d976addb03eef169af9f85a015f96a078cfe893e64d4a8d5f46febc03aab923d"
+    },
+    "code/private_assets/models/asr/added_tokens.json": {
+      "bytes": 2082,
+      "sha256": "ce949fe720c14311cb6c446e69cfe340dc669d7b006077a6feed6ae571dd7e88"
+    },
+    "code/private_assets/models/asr/config.json": {
+      "bytes": 1304,
+      "sha256": "710db858501fb69f2c31ca8529f591e3f089027db84a5001a6e5edfaf2d6c56d"
+    },
+    "code/private_assets/models/asr/generation_config.json": {
+      "bytes": 3966,
+      "sha256": "34233ee8647a03ac94bef2e5a4255e6871e9122b52edfa96e8fd1ac54538b3f4"
+    },
+    "code/private_assets/models/asr/merges.txt": {
+      "bytes": 493864,
+      "sha256": "78f27f801feb4283ae969d4cadacb28fc051b655647402b1a252c7079ea11c46"
+    },
+    "code/private_assets/models/asr/model.safetensors": {
+      "bytes": 1527827760,
+      "sha256": "ef9fbfeeb376cede75127035db135fe614c5c92478fde1f837dbcab2ace94c4a"
+    },
+    "code/private_assets/models/asr/normalizer.json": {
+      "bytes": 52666,
+      "sha256": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd"
+    },
+    "code/private_assets/models/asr/preprocessor_config.json": {
+      "bytes": 339,
+      "sha256": "a6a76d28c93edb273669eb9e0b0636a2bddbb1272c3261e47b7ca6dfdbac1b8d"
+    },
+    "code/private_assets/models/asr/special_tokens_map.json": {
+      "bytes": 2077,
+      "sha256": "b0aac6950381c4ae2f60b3f0fab04bcfe399a6a320cb3e4c7aee2d52924d733e"
+    },
+    "code/private_assets/models/asr/tokenizer.json": {
+      "bytes": 2204003,
+      "sha256": "c218b12acbc2168cad951ae8a8c8d345df09dfa63b787214d4ac27762170fd7b"
+    },
+    "code/private_assets/models/asr/tokenizer_config.json": {
+      "bytes": 805,
+      "sha256": "14f84bdf4b9ecdbd4738ddc81c17a1baedfc02bb93c6e049c951e15a1b40b70d"
+    },
+    "code/private_assets/models/asr/vocab.json": {
+      "bytes": 835550,
+      "sha256": "8f680bba319e01a653d2e8a5dbc17a9157179e0576e6ce74ce0c06356c6e24f9"
+    },
+    "code/private_assets/models/qwen/Qwen3.5-4B-LifeMate-V2-Q4_K_M.gguf": {
+      "bytes": 2708804064,
+      "sha256": "cb09b88189a7a1e001022b08eac0e7609c560cd3dee0bca37f9414a85f74a8b1"
+    },
+    "code/private_assets/private_data/retrieval_index.json": {
+      "bytes": 659009,
+      "sha256": "7a0ddca8a099d025aa9d805f0888fc93354276ef6bf4814c651dd5818dfe5629"
+    },
+    "code/private_assets/private_data/split.json": {
+      "bytes": 78865,
+      "sha256": "954c7de55700b0fea3ba5a0a0b007b5a3b30347af6d7c56aae375cb3109bbe44"
+    },
+    "code/linux_runtime/LICENSE": {
+      "bytes": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+    },
+    "code/linux_runtime/ggml-rpc-server": {
+      "bytes": 197488,
+      "sha256": "97ecaed6cc325432d69371c1cb1ecbd5a8dcfff2edc0d4db70306ac6714823ae"
+    },
+    "code/linux_runtime/libggml-base.so": {
+      "bytes": 926128,
+      "sha256": "66014a2da17945323d139e1fde43d509893e0938f1d67d2a359ac3cc67c5a42b"
+    },
+    "code/linux_runtime/libggml-base.so.0": {
+      "bytes": 926128,
+      "sha256": "66014a2da17945323d139e1fde43d509893e0938f1d67d2a359ac3cc67c5a42b"
+    },
+    "code/linux_runtime/libggml-base.so.0.27.0": {
+      "bytes": 926128,
+      "sha256": "66014a2da17945323d139e1fde43d509893e0938f1d67d2a359ac3cc67c5a42b"
+    },
+    "code/linux_runtime/libggml-cpu-alderlake.so": {
+      "bytes": 1406640,
+      "sha256": "6fe54be6c375063d65f458b3e4bc1cb653c9bbe95ba22ad986f2e8ffa6b8a064"
+    },
+    "code/linux_runtime/libggml-cpu-cannonlake.so": {
+      "bytes": 1580600,
+      "sha256": "af907974abe4993b8918fecd6883d0fa116450ead37860624ff4167561218e42"
+    },
+    "code/linux_runtime/libggml-cpu-cascadelake.so": {
+      "bytes": 1592592,
+      "sha256": "251dd4aadd8f76470bc3cc1c27fb7e0267aeb0c45b8ee596c87512f168e219a7"
+    },
+    "code/linux_runtime/libggml-cpu-cooperlake.so": {
+      "bytes": 1592760,
+      "sha256": "e254bf86167a03180b67b18f77a7d2c8475638d0e736d4ad88154c48479a8a01"
+    },
+    "code/linux_runtime/libggml-cpu-haswell.so": {
+      "bytes": 1406640,
+      "sha256": "b41f94a60f6e831fb8af172c086cec72477ee763591cc432b598f1fd1c9e3565"
+    },
+    "code/linux_runtime/libggml-cpu-icelake.so": {
+      "bytes": 1592592,
+      "sha256": "2b34c1acd3b365b51a106b2388d20401b9395fb3b414f7c8ae48089422edb630"
+    },
+    "code/linux_runtime/libggml-cpu-ivybridge.so": {
+      "bytes": 1330016,
+      "sha256": "a9022975ed9ee9f5d43ac139162b1e1f097436e6f4b3c671d3b6f3c3f430de9c"
+    },
+    "code/linux_runtime/libggml-cpu-piledriver.so": {
+      "bytes": 1325920,
+      "sha256": "fc059aaa709184f85ad1f45fc0256c213cfd859986d0b760bd35a6985abd549c"
+    },
+    "code/linux_runtime/libggml-cpu-sandybridge.so": {
+      "bytes": 1324872,
+      "sha256": "e59bf1e9b34842e96f58cf9f883f74fc6f89d2ef356df090a8561da3205ffec0"
+    },
+    "code/linux_runtime/libggml-cpu-sapphirerapids.so": {
+      "bytes": 1834480,
+      "sha256": "6f8f95448e1bf0ba2741dd6a44e4d6b2e74f165f63be1a747ac96689a7fe05cf"
+    },
+    "code/linux_runtime/libggml-cpu-skylakex.so": {
+      "bytes": 1580600,
+      "sha256": "7692a49f20d2c4eddfd70e239a29de017e049b3c748454e06cfa8270ccbf8a98"
+    },
+    "code/linux_runtime/libggml-cpu-sse42.so": {
+      "bytes": 993952,
+      "sha256": "2b583b2760e27c161e3537b7ede199cc9a9650d2a0eafd8b3e008b4ce12133f8"
+    },
+    "code/linux_runtime/libggml-cpu-x64.so": {
+      "bytes": 994032,
+      "sha256": "5848ee07e89380ddf4e06624f8101cce66d80e0092a4b314e9fb792659c148a5"
+    },
+    "code/linux_runtime/libggml-cpu-zen4.so": {
+      "bytes": 1592760,
+      "sha256": "c81733d694cd0b67b3a3ac635763f9ea7331e141c6013881d627da271f4f7a8a"
+    },
+    "code/linux_runtime/libggml-cuda.so": {
+      "bytes": 178578480,
+      "sha256": "0e18ab470d52f0d0179c6442c6903c21484be3264e88e1a25fa0004c9c2788c4"
+    },
+    "code/linux_runtime/libggml-rpc.so": {
+      "bytes": 323424,
+      "sha256": "66a77108308a9340e57f89bbd22611a740ea30c0a3ce2068cdbb1213423e50b6"
+    },
+    "code/linux_runtime/libggml.so": {
+      "bytes": 55960,
+      "sha256": "207cfc7c4b4b957a0e6f330cd2678290eae05508da23d8ed59b4b7fc0a828390"
+    },
+    "code/linux_runtime/libggml.so.0": {
+      "bytes": 55960,
+      "sha256": "207cfc7c4b4b957a0e6f330cd2678290eae05508da23d8ed59b4b7fc0a828390"
+    },
+    "code/linux_runtime/libggml.so.0.27.0": {
+      "bytes": 55960,
+      "sha256": "207cfc7c4b4b957a0e6f330cd2678290eae05508da23d8ed59b4b7fc0a828390"
+    },
+    "code/linux_runtime/libllama-batched-bench-impl.so": {
+      "bytes": 44656,
+      "sha256": "5738cc72f1fa97d72a2f7c5b34605909af1c73ef9b989756fcbe965af831572d"
+    },
+    "code/linux_runtime/libllama-bench-impl.so": {
+      "bytes": 485856,
+      "sha256": "0299c0141323e81a6f52ec9831fa05a5c0994d0b74118687246b881c4e194f8f"
+    },
+    "code/linux_runtime/libllama-cli-impl.so": {
+      "bytes": 251768,
+      "sha256": "a5406169cf6941ee9ba76f7c09dccc5541db6fadd06a16c955b23803d52e9d49"
+    },
+    "code/linux_runtime/libllama-common.so": {
+      "bytes": 6548296,
+      "sha256": "8c94d72917e7fa86bb6317ab573d0226b1b1ee4ba60f67ddf16aeb4833cf34d9"
+    },
+    "code/linux_runtime/libllama-common.so.0": {
+      "bytes": 6548296,
+      "sha256": "8c94d72917e7fa86bb6317ab573d0226b1b1ee4ba60f67ddf16aeb4833cf34d9"
+    },
+    "code/linux_runtime/libllama-common.so.0.7.0": {
+      "bytes": 6548296,
+      "sha256": "8c94d72917e7fa86bb6317ab573d0226b1b1ee4ba60f67ddf16aeb4833cf34d9"
+    },
+    "code/linux_runtime/libllama-completion-impl.so": {
+      "bytes": 141608,
+      "sha256": "243b8a498ca3905b627463b2de0ab7cac705578ce3896647c6d4525d998e1174"
+    },
+    "code/linux_runtime/libllama-fit-params-impl.so": {
+      "bytes": 39568,
+      "sha256": "71b23fc5eb4b073c106c42c5fb1de981faa628c72f06648b9e80b5bd6841c59f"
+    },
+    "code/linux_runtime/libllama-perplexity-impl.so": {
+      "bytes": 164776,
+      "sha256": "b7503c0b45228bdc7da463db3cce37ab7f329c143c1d5b12904254f006382b17"
+    },
+    "code/linux_runtime/libllama-quantize-impl.so": {
+      "bytes": 89800,
+      "sha256": "f9ecfdd4451cf051532ffe4df02e68e6e2d0d6186df696b3ba88731ef17e0173"
+    },
+    "code/linux_runtime/libllama-server-impl.so": {
+      "bytes": 7619880,
+      "sha256": "9992b4de55d6548da3482bf8f26794e3da32bfa0eb889afdd0367d05ddf10a4d"
+    },
+    "code/linux_runtime/libllama.so": {
+      "bytes": 5255192,
+      "sha256": "6f4d299bc9da57929f9bc86cb468519ac8d00cea113f9b6a2ebf45d26120304c"
+    },
+    "code/linux_runtime/libllama.so.0": {
+      "bytes": 5255192,
+      "sha256": "6f4d299bc9da57929f9bc86cb468519ac8d00cea113f9b6a2ebf45d26120304c"
+    },
+    "code/linux_runtime/libllama.so.0.7.0": {
+      "bytes": 5255192,
+      "sha256": "6f4d299bc9da57929f9bc86cb468519ac8d00cea113f9b6a2ebf45d26120304c"
+    },
+    "code/linux_runtime/libmtmd.so": {
+      "bytes": 2089304,
+      "sha256": "16888009e9cff2e7e85e367ca3976c1a7fa4fa62634d685938f84769aca6bbf7"
+    },
+    "code/linux_runtime/libmtmd.so.0": {
+      "bytes": 2089304,
+      "sha256": "16888009e9cff2e7e85e367ca3976c1a7fa4fa62634d685938f84769aca6bbf7"
+    },
+    "code/linux_runtime/libmtmd.so.0.7.0": {
+      "bytes": 2089304,
+      "sha256": "16888009e9cff2e7e85e367ca3976c1a7fa4fa62634d685938f84769aca6bbf7"
+    },
+    "code/linux_runtime/llama": {
+      "bytes": 62184,
+      "sha256": "b8e6ae4f0ac9790e2d9e63571fd4d9f7c05eb64e73c68de09310ef7ef34e0d23"
+    },
+    "code/linux_runtime/llama-batched-bench": {
+      "bytes": 15976,
+      "sha256": "7859f175883f9c37443f6e5f1e07425f4b5885031d90ebacb4c1e97e60d8788c"
+    },
+    "code/linux_runtime/llama-bench": {
+      "bytes": 17888,
+      "sha256": "e7e809facbfa906e153814c390fdae71c48055bb485cc0cee05bb756f277ea89"
+    },
+    "code/linux_runtime/llama-cli": {
+      "bytes": 1459416,
+      "sha256": "0b194f4b5fb9218a0f8fea302cd67c063c77a07769bfb45999b4fc4766013647"
+    },
+    "code/linux_runtime/llama-completion": {
+      "bytes": 15968,
+      "sha256": "15472995c69d23fd6350f84b1fb73156698bab77b20438b617bcd8e1e9a9a11f"
+    },
+    "code/linux_runtime/llama-connect": {
+      "bytes": 9729072,
+      "sha256": "0f57652dee1df5a5d69dfb11a8775f864345cfb881b2bd34c6ca6c409ce73d25"
+    },
+    "code/linux_runtime/llama-fit-params": {
+      "bytes": 15968,
+      "sha256": "140a1326c0556d44fb96fad5fed3d1910e28525911c57676f5ff0fd11923265e"
+    },
+    "code/linux_runtime/llama-gemma3-cli": {
+      "bytes": 17008,
+      "sha256": "b97e6722bf5d263b68e0f25dd6480d44f2e12ec752fc80204600a82e2d773372"
+    },
+    "code/linux_runtime/llama-gguf-split": {
+      "bytes": 48752,
+      "sha256": "40fc3a63fb191e7d5dee19797661a66294171205daa8d52389212c13499ab3a6"
+    },
+    "code/linux_runtime/llama-imatrix": {
+      "bytes": 233656,
+      "sha256": "2b5f9e6eb2ae2b2adede6b584110d24a0dda363444a4e8be40e0dd3f98a1ccc2"
+    },
+    "code/linux_runtime/llama-llava-cli": {
+      "bytes": 17008,
+      "sha256": "b97e6722bf5d263b68e0f25dd6480d44f2e12ec752fc80204600a82e2d773372"
+    },
+    "code/linux_runtime/llama-minicpmv-cli": {
+      "bytes": 17008,
+      "sha256": "b97e6722bf5d263b68e0f25dd6480d44f2e12ec752fc80204600a82e2d773372"
+    },
+    "code/linux_runtime/llama-mtmd-cli": {
+      "bytes": 101992,
+      "sha256": "d79ced18869d688ea42018562979f3b1c71d749650f57b952176f273e099f5f5"
+    },
+    "code/linux_runtime/llama-mtmd-debug": {
+      "bytes": 54480,
+      "sha256": "5ca4ba06e025e88ca89e5629c2908f07c851db97b507f2334c3f844ba8e5a830"
+    },
+    "code/linux_runtime/llama-perplexity": {
+      "bytes": 15968,
+      "sha256": "92594986686a4bbe23a2834695792ce32f8b18b9d57bf3c50e0ac87aba715fdd"
+    },
+    "code/linux_runtime/llama-quantize": {
+      "bytes": 17888,
+      "sha256": "455752061c5c5fdea28c311a0b7954d8b5c511f06d0aeb8e57d9732cd7e76d6d"
+    },
+    "code/linux_runtime/llama-qwen2vl-cli": {
+      "bytes": 17008,
+      "sha256": "b97e6722bf5d263b68e0f25dd6480d44f2e12ec752fc80204600a82e2d773372"
+    },
+    "code/linux_runtime/llama-results": {
+      "bytes": 50296,
+      "sha256": "f09edad3f06350919b8f49afec49079ff5f41604c96929a5a7e27913902452b8"
+    },
+    "code/linux_runtime/llama-server": {
+      "bytes": 17888,
+      "sha256": "706f25b72f45c7f658184c48a465e96bca419f638dc6b5e701921279b377e2a8"
+    },
+    "code/linux_runtime/llama-tokenize": {
+      "bytes": 40808,
+      "sha256": "ca4836cae79abd6db036baf2f80bda9ec026866f2047dafaa58aefe196f3e8a3"
+    },
+    "code/linux_runtime/llama-tts": {
+      "bytes": 40792,
+      "sha256": "11d062e3b00453c9a6842e9964a017a020058733bb566786c0fadb233dfb709a"
+    },
+    "code/linux_runtime/runtime_manifest.json": {
+      "bytes": 9082,
+      "sha256": "28942ddb826137222ed450116a30c319b877f76070e6bb36950a31c8a61512b4"
+    },
+    "code/predict.py": {
+      "bytes": 7748,
+      "sha256": "6e8fff65bfd9f2c8995447d7a797902236786e77fbcdc71c9cddf52748b9b2eb"
+    },
+    "code/predict.sh": {
+      "bytes": 62,
+      "sha256": "b31994f21209b027a64142e41e6034a3a4fc0a6a4cccff7331b128cd245c3dce"
+    },
+    "code/predict_notebook.ipynb": {
+      "bytes": 2015,
+      "sha256": "58138d00da3f8a9158c4d1f3443ce91509a02d876e7acd4e438febf1bbdc3edc"
+    },
+    "code/start_jupyter.sh": {
+      "bytes": 121,
+      "sha256": "39f61457973454c48565ee1728e645aa966ae3ab025636d10d42740db01ddb8e"
+    },
+    "code/llm/baseline_50_2/assets.manifest.json": {
+      "bytes": 18914,
+      "sha256": "800dc5de2008359756ac970ec1b46f3add83e177d9882893d591fed8ff196af0"
+    }
+  }
+}

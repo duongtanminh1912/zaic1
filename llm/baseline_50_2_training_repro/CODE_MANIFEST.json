@@ -1,0 +1,14 @@
+{
+  "files": {
+    "medium_training.py": "f7983f7a06a872fcd924a54c436fbd23b57535cefc18be243cd220746ba0b220",
+    "BASE_MODELS.json": "a4e93d140a090a23f8f35f6e0d64ed71032fa211c643be9aa4a8371b962f3827",
+    "ARCHIVES.json": "d534225caf2824a13349947c9384228c3df8310680bc5cee1d3ddb1a3ecc3244",
+    "PROVENANCE.json": "64fbdee2418f809b49d71ed8332fed58a51f3dd8fb2e2d14cb684374f3ddec99",
+    "EXPECTED_CHECKPOINTS.json": "ba6dad95f550b2bd96207f680a3e1acfe18a82fdc62492a6748c18a82e8241a9",
+    "reproduce.py": "3678f131e020b4fc869231a58a2beae9b56a0fb366f85a65fb383f04eaeb6532",
+    "README.md": "a1ea8ae01f9b519edbd1407f5a2405560de78ed9b28ba4d02e63b5d22cea3017",
+    "config.example.json": "635e3c9f6bad1af5a0e49e8c04d264827d6f9fb9d406980534c5078615db5cb0",
+    "training_recipe.json": "960ff1cb7f6555ff081b8928788c5c4a1ed89851f15f38f1ab11f33ef6c9849a",
+    "audit_public.py": "5ab69d65e05f3437dfffa5b6334e7fa3833bfcaf2cd08fc72a032bf8010c7ab7"
+  }
+}
