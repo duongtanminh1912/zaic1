@@ -1,0 +1,15 @@
+{
+  "checkpoints": {
+    "archive": "LIFEMATE_BASELINE_50_2_TRAINING_CHECKPOINTS.zip",
+    "bytes": 743551608,
+    "sha256": "2ef1dab21ac4b1aec810e8bb5c31f7499e1f483d9f23636f64fa8ef7c9f246c7"
+  },
+  "shared_training": {
+    "archive_names": [
+      "LIFEMATE_50_9_TRAINING_PRIVATE.zip",
+      "03_TRAINING_BASE50_9.zip"
+    ],
+    "bytes": 2775709761,
+    "sha256": "33373adfe686d821c0c771b01a10e3e90dd7e63fc324d7dc2561ffd133012498"
+  }
+}

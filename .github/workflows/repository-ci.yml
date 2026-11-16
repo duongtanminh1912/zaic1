@@ -89,6 +89,8 @@ jobs:
           python -m unittest discover -s ops/packaging/baseline_50_9 -p test_packaging.py -v 2>&1 | tee artifacts/large-packaging-tests.log
           python -B llm/baseline_50_9_training_repro/audit_public.py
           python -B llm/baseline_50_9_training_repro/reproduce.py --help
+          python -B llm/baseline_50_2_training_repro/audit_public.py
+          python -B llm/baseline_50_2_training_repro/reproduce.py --help
           python -B -m unittest discover -s ops/packaging/baseline_52 -p test_packaging.py -v 2>&1 | tee artifacts/release52-packaging-tests.log
           PYTHONPATH=llm/baseline_52_release/inference python -B -c 'from baseline50.release import verify; verify()'
           python -m unittest discover -s ops/packaging/baseline_52 -p test_packaging.py -v

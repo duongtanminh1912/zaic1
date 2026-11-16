@@ -1,0 +1,8 @@
+{
+  "private_dir": "PATH_OUTSIDE_GIT/shared_training",
+  "checkpoint_dir": "PATH_OUTSIDE_GIT/checkpoints_50_2",
+  "work_dir": "PATH_OUTSIDE_GIT/new_work_50_2",
+  "qwen_base_dir": "PATH_TO_PINNED_QWEN35_SNAPSHOT",
+  "asr_base_dir": "PATH_TO_PINNED_PHOWHISPER_MEDIUM_SNAPSHOT",
+  "qwen_processor_dir": "PATH_TO_NEW_QWEN_RUN/processor"
+}
